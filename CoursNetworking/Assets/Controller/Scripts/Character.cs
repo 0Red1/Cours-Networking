@@ -1,13 +1,25 @@
+using Unity.Netcode;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
-public class Character : MonoBehaviour
+public class Character : NetworkBehaviour
 {
     #region Variables
     public CharacterMovementController movementController;
     public CharacterAnimationsController animationsController;
     public CharacterSkillsPlayer skillsPlayer;
     #endregion
+
+    protected override void OnNetworkPostSpawn()
+    {
+        base.OnNetworkPostSpawn();
+        Debug.Log(IsOwner);
+
+        if (IsOwner)
+        {
+            InputController.Instance.SetCharacter(this);
+        }
+    }
 
     private void Awake()
     {

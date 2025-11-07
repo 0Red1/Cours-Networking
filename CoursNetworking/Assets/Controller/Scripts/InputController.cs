@@ -6,7 +6,7 @@ public class InputController : MonoBehaviour
     #region Variables
     [SerializeField] InputActionAsset inputAction;
 
-    [SerializeField] private Character targetCharacter;
+    private Character targetCharacter;
 
     private InputAction m_moveAction;
     private InputAction m_dashAction;
@@ -16,16 +16,29 @@ public class InputController : MonoBehaviour
 
     private Vector2 m_move;
     #endregion
+    
+    #region Singleton
+    public static InputController Instance {get; private set;}
+    
 
     private void Awake()
     {
+        if (Instance)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        
+        Instance = this;
+        
         m_moveAction = InputSystem.actions.FindAction("Move");
         m_dashAction = InputSystem.actions.FindAction("Dash");
         m_skill1Action = InputSystem.actions.FindAction("Skill1");
         m_skill2Action = InputSystem.actions.FindAction("Skill2");
         m_skill3Action = InputSystem.actions.FindAction("Skill3");
     }
-
+    #endregion
+    
     private void OnEnable()
     {
         inputAction.FindActionMap("Player").Enable();
@@ -53,8 +66,18 @@ public class InputController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.unityLogger.Log(targetCharacter);
+        if (!targetCharacter) 
+            return;
+        
         m_move = m_moveAction.ReadValue<Vector2>();
         targetCharacter.movementController.SetInputDirection(m_move);
+        Debug.Log(m_move);
+    }
+
+    public void SetCharacter(Character character)
+    {
+        targetCharacter = character;
     }
 
     void OnDashPerformed(InputAction.CallbackContext context)

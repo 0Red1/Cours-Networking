@@ -1,7 +1,8 @@
 using System.Collections;
+using Unity.Netcode;
 using UnityEngine;
 
-public class CharacterMovementController : MonoBehaviour
+public class CharacterMovementController : NetworkBehaviour
 {
     #region Variables
     [SerializeField] private float moveSpeed = 5f;
@@ -21,6 +22,11 @@ public class CharacterMovementController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!IsOwner)
+            
+            return;
+            
+            
         Vector3 movement = m_moveDirection * moveSpeed * Time.deltaTime;
         m_cc.Move(movement);
         HandleFlip(m_moveDirection.x);
@@ -38,6 +44,7 @@ public class CharacterMovementController : MonoBehaviour
     {
         m_moveDirection.x = input.x;
         m_moveDirection.z = input.y;
+        Debug.Log(m_moveDirection);
     }
 
     public void Dash()
