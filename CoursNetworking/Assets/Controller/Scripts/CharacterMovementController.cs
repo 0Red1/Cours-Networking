@@ -44,7 +44,6 @@ public class CharacterMovementController : NetworkBehaviour
     {
         m_moveDirection.x = input.x;
         m_moveDirection.z = input.y;
-        Debug.Log(m_moveDirection);
     }
 
     public void Dash()

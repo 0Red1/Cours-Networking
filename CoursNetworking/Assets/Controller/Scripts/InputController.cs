@@ -66,13 +66,11 @@ public class InputController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.unityLogger.Log(targetCharacter);
         if (!targetCharacter) 
             return;
         
         m_move = m_moveAction.ReadValue<Vector2>();
         targetCharacter.movementController.SetInputDirection(m_move);
-        Debug.Log(m_move);
     }
 
     public void SetCharacter(Character character)

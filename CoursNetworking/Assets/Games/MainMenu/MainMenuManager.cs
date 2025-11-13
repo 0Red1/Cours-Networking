@@ -61,7 +61,7 @@ public class MainMenuManager : MonoBehaviour
     #region Custom Methods
     private void HandleHostButtonClicked()
     {
-        Debug.Log("Host Button Cliked");
+        //Debug.Log("Host Button Cliked");
 
         m_transport.ConnectionData.Address = m_addressField.text;
         m_transport.ConnectionData.ServerListenAddress = m_addressField.text;
@@ -72,7 +72,7 @@ public class MainMenuManager : MonoBehaviour
 
     private void HandleClientButtonClicked()
     {
-        Debug.Log("Client Button Cliked");
+        //Debug.Log("Client Button Cliked");
 
         m_transport.ConnectionData.Address = m_addressField.text;
         m_transport.ConnectionData.Port = ushort.Parse(m_portField.text);

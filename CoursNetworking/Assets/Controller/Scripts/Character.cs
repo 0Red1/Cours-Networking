@@ -5,15 +5,18 @@ using UnityEngine;
 public class Character : NetworkBehaviour
 {
     #region Variables
+    public readonly NetworkVariable<int> score = new NetworkVariable<int>(0);
+
     public CharacterMovementController movementController;
     public CharacterAnimationsController animationsController;
     public CharacterSkillsPlayer skillsPlayer;
+
+    private PlayerManager _playerManager;
     #endregion
 
     protected override void OnNetworkPostSpawn()
     {
         base.OnNetworkPostSpawn();
-        Debug.Log(IsOwner);
 
         if (IsOwner)
         {
@@ -28,11 +31,17 @@ public class Character : NetworkBehaviour
         skillsPlayer = GetComponent<CharacterSkillsPlayer>();
 
         movementController.SetManager(this);
+        _playerManager = PlayerManager.Instance;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        if (_playerManager != null)
+        {
+            _playerManager.AddPlayer(this);
+            Debug.Log($"[Char Log] Joueur {gameObject.name} enregistré. Compte PlayerManager : {_playerManager.GetPlayerCount()}");
+        }
 
     }
 
