@@ -1,15 +1,23 @@
 using TMPro;
+using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
     #region Variables
     public GameObject waitingPan;
     public GameObject timerPan;
+    [SerializeField] private TMP_Text timerTxt;
+
+    [Header("Health")]
+    [SerializeField] private Slider p1healthBar;
+    [SerializeField] private Slider p2healthBar;
+
+    [Header("Coin")]
     public GameObject scorePan;
     [SerializeField] private TMP_Text scoreJ1InGameTxt;
     [SerializeField] private TMP_Text scoreJ2InGameTxt;
-    [SerializeField] private TMP_Text timerTxt;
     [SerializeField] private TMP_Text scoreJ1Txt;
     [SerializeField] private TMP_Text scoreJ2Txt;
     [SerializeField] private TMP_Text winnerTxt;
@@ -23,10 +31,11 @@ public class UIManager : MonoBehaviour
     }
     #endregion
 
+    #region Built-in Methods
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -34,8 +43,12 @@ public class UIManager : MonoBehaviour
     {
         
     }
+    #endregion
 
     #region Custom Methods
+    /// <summary>
+    /// Methods pour afficher l ecran d attente du deuxieme joueur
+    /// </summary>
     public void ShowWaitingScreen()
     {
         if (waitingPan != null) 
@@ -45,6 +58,9 @@ public class UIManager : MonoBehaviour
         Debug.Log("[UIManager] Affichage de l'écran d'attente.");
     }
 
+    /// <summary>
+    /// Methods pour cacher l ecran d attente du deuxieme joueur
+    /// </summary>
     public void HideWaitingScreen()
     {
         if (waitingPan != null)
@@ -59,6 +75,41 @@ public class UIManager : MonoBehaviour
         timerTxt.text = timer.ToString("0");
     }
 
+    public void RegisterHealthSystem(ulong clientID, HealthSystem hs)
+    {
+        if (clientID == NetworkManager.Singleton.LocalClientId)
+        {
+            InitializedHealthBar(p1healthBar, hs.MaxHealth);
+        }
+        else
+        {
+            InitializedHealthBar(p2healthBar, hs.MaxHealth);
+        }
+
+        hs.OnHealthChanged += UpdateUIHealth;
+
+        UpdateUIHealth(clientID, hs.CurrentHealth.Value);
+    }
+
+    void InitializedHealthBar(Slider healthBar, float maxValue)
+    {
+        healthBar.maxValue = maxValue;
+    }
+
+    public void UpdateUIHealth(ulong clientId, float newHealth)
+    {
+        if (clientId == NetworkManager.Singleton.LocalClientId)
+        {
+            p1healthBar.value = newHealth;
+        }
+        else
+        {
+            p2healthBar.value = newHealth;
+        }
+    }
+    #endregion
+
+    #region Coin
     public void ShowScoreScreen() 
     {
         if (scorePan != null)

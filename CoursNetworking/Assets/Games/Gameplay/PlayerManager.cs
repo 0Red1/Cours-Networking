@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,9 +11,9 @@ public class PlayerManager : MonoBehaviour
     #endregion
 
     #region Properties
+    public List<Character> ActivePlayers => activePlayers;
     public static PlayerManager Instance => _instance;
     #endregion
-
 
     #region Built-in Methods
     private void Awake()
@@ -39,7 +40,7 @@ public class PlayerManager : MonoBehaviour
     #endregion
 
     #region Custom Methods
-    public void AddPlayer(Character newPlayer)
+    public void AddPlayer(ulong clientId, Character newPlayer)
     {
         if (!activePlayers.Contains(newPlayer))
         {
@@ -72,4 +73,18 @@ public class PlayerManager : MonoBehaviour
         return 0;
     }
     #endregion
+
+    // fonction de test a suppr
+    public Character GetCharacterByClientId(ulong clientId)
+    {
+        foreach (Character player in activePlayers)
+        {
+            // On cherche le joueur dont l'OwnerClientId correspond à l'ID recherché
+            if (player.OwnerClientId == clientId)
+            {
+                return player;
+            }
+        }
+        return null; // Non trouvé
+    }
 }
