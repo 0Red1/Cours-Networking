@@ -10,6 +10,7 @@ public class Character : NetworkBehaviour
     public CharacterMovementManager movementController;
     public CharacterAnimationsController animationsController;
     public CharacterSkillsPlayer skillsPlayer;
+    public HealthSystem healthSystem;
 
     private PlayerManager _playerManager;
     #endregion
@@ -39,10 +40,9 @@ public class Character : NetworkBehaviour
     {
         if (_playerManager != null)
         {
-            _playerManager.AddPlayer(this);
+            _playerManager.AddPlayer(OwnerClientId, this);
             Debug.Log($"[Char Log] Joueur {gameObject.name} enregistr�. Compte PlayerManager : {_playerManager.GetPlayerCount()}");
         }
-
     }
 
     // Update is called once per frame

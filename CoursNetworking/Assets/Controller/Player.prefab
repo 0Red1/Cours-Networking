@@ -44,10 +44,11 @@ GameObject:
   - component: {fileID: 4580435539038965967}
   - component: {fileID: 3690201926365133350}
   - component: {fileID: 149422099971103358}
-  - component: {fileID: 21460540282713203}
   - component: {fileID: 6741052629770176306}
   - component: {fileID: 6904676061457386010}
   - component: {fileID: 6232388770557858017}
+  - component: {fileID: 2817572127057959755}
+  - component: {fileID: 4623443347131543177}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -108,8 +109,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 552307200
-  InScenePlacedSourceGlobalObjectIdHash: 0
+  GlobalObjectIdHash: 4117322290
+  InScenePlacedSourceGlobalObjectIdHash: 1398119991
   DeferredDespawnTick: 0
   Ownership: 1
   AlwaysReplicateAsRoot: 0
@@ -137,20 +138,7 @@ MonoBehaviour:
   movementController: {fileID: 0}
   animationsController: {fileID: 0}
   skillsPlayer: {fileID: 0}
---- !u!114 &21460540282713203
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4069614721761643276}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f50eb234378baeb4abcd135aa65d6512, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CharacterMovementManager
-  ShowTopMostFoldoutHeaderGroup: 1
-  moveSpeed: 5
+  healthSystem: {fileID: 0}
 --- !u!114 &6741052629770176306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,6 +210,34 @@ MonoBehaviour:
   SwitchTransformSpaceWhenParented: 0
   Interpolate: 1
   SlerpPosition: 0
+--- !u!114 &2817572127057959755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4069614721761643276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f50eb234378baeb4abcd135aa65d6512, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterMovementManager
+  ShowTopMostFoldoutHeaderGroup: 1
+  moveSpeed: 5
+--- !u!114 &4623443347131543177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4069614721761643276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42e49d375f4c5624bb94ca941f192c71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealthSystem
+  ShowTopMostFoldoutHeaderGroup: 1
+  maxHealth: 100
 --- !u!1001 &3256497517159113659
 PrefabInstance:
   m_ObjectHideFlags: 0
