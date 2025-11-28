@@ -7,7 +7,7 @@ public abstract class StateManager<EState> : NetworkBehaviour where EState : Enu
 {
     protected Dictionary<EState, BaseState<EState>> States = new Dictionary<EState, BaseState<EState>>();
 
-    protected BaseState<EState> CurrentState;
+    public BaseState<EState> CurrentState;
 
     public void TransitionToStateLocal(EState stateKey)
     {
@@ -20,15 +20,15 @@ public abstract class StateManager<EState> : NetworkBehaviour where EState : Enu
         {
             CurrentState = States[stateKey];
             CurrentState.EnterState();
-            Debug.Log($"[FSM Log] Transition locale de {CurrentState.StateKey} à {stateKey}");
+            Debug.Log($"[FSM Log] Transition locale de {CurrentState.StateKey} ï¿½ {stateKey}");
         }
         else
         {
-            Debug.LogError($"[FSM Log] Tentative de transition vers un état non existant : {stateKey}");
+            Debug.LogError($"[FSM Log] Tentative de transition vers un ï¿½tat non existant : {stateKey}");
         }
     }
 
-    public void RunCurrentStateUpdate()
+    public void  RunCurrentStateUpdate()
     {
         if (CurrentState != null)
         {

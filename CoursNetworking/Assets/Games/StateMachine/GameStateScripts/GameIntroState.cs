@@ -16,8 +16,7 @@ public class GameIntroState : BaseState<GameManager.GameStates>
 
     public override void EnterState()
     {
-        Debug.Log("[IntroState] -> Entrée. Désactivation des contrôles et affichage UI.");
-        _gameManager.playerManager.SetPlayerActive(false);
+        Debug.Log("[IntroState] -> Entrï¿½e. Dï¿½sactivation des contrï¿½les et affichage UI.");
         _gameManager.uiManager.ShowWaitingScreen();
         _timeRemaining = DisplayDuration;
     }
@@ -43,7 +42,7 @@ public class GameIntroState : BaseState<GameManager.GameStates>
         {
             if (_gameManager.playerManager.GetPlayerCount() >= 2 && _timeRemaining <= 0f)
             {
-                Debug.Log($"[IntroState] CONDITION RÉUSSIE : 2 joueurs prêts. Passage à InGame.");
+                Debug.Log($"[IntroState] CONDITION Rï¿½USSIE : 2 joueurs prï¿½ts. Passage ï¿½ InGame.");
                 return GameManager.GameStates.InGame;
             }
         }

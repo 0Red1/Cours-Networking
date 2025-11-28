@@ -66,7 +66,7 @@ public class CharacterMovementController : NetworkBehaviour
 
         while (Time.time < startTime + duration)
         {
-            m_cc.Move(dashDir * dashSpeed * Time.deltaTime);
+            m_cc.Move(dashDir * (dashSpeed * Time.deltaTime));
 
             yield return null;
         }

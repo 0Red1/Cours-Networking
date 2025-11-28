@@ -57,9 +57,9 @@ public class PlayerManager : MonoBehaviour
     {
         foreach (Character player in activePlayers) 
         { 
-            player.enabled = isActive;
+            player.movementController.Stop(!isActive);
         }
-        Debug.Log($"[PlayerManager] Contrôles des joueurs changés à : {isActive}");
+        Debug.Log($"[PlayerManager] Contrï¿½les des joueurs changï¿½s ï¿½ : {isActive}");
     }
 
     public int GetPlayerScore(int playerIndex)
