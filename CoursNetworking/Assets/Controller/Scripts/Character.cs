@@ -7,7 +7,7 @@ public class Character : NetworkBehaviour
     #region Variables
     public readonly NetworkVariable<int> score = new NetworkVariable<int>(0);
 
-    public CharacterMovementController movementController;
+    public CharacterMovementManager movementController;
     public CharacterAnimationsController animationsController;
     public CharacterSkillsPlayer skillsPlayer;
 
@@ -26,7 +26,7 @@ public class Character : NetworkBehaviour
 
     private void Awake()
     {
-        movementController = GetComponent<CharacterMovementController>();
+        movementController = GetComponent<CharacterMovementManager>();
         animationsController = GetComponent<CharacterAnimationsController>();
         skillsPlayer = GetComponent<CharacterSkillsPlayer>();
 
@@ -40,7 +40,7 @@ public class Character : NetworkBehaviour
         if (_playerManager != null)
         {
             _playerManager.AddPlayer(this);
-            Debug.Log($"[Char Log] Joueur {gameObject.name} enregistré. Compte PlayerManager : {_playerManager.GetPlayerCount()}");
+            Debug.Log($"[Char Log] Joueur {gameObject.name} enregistrï¿½. Compte PlayerManager : {_playerManager.GetPlayerCount()}");
         }
 
     }
