@@ -20,7 +20,6 @@ public abstract class StateManager<EState> : NetworkBehaviour where EState : Enu
         {
             CurrentState = States[stateKey];
             CurrentState.EnterState();
-            Debug.Log($"[FSM Log] Transition locale de {CurrentState.StateKey} � {stateKey}");
         }
         else
         {

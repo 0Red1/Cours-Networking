@@ -1,12 +1,15 @@
 using UnityEngine;
 
-public class AI : MonoBehaviour
+public class DamageReceiver : MonoBehaviour
 {
     #region Variables
-    
+    [SerializeField] private HealthSystem hs;
     #endregion
 
-    #region Built-in Methods
+    #region Properties
+    public HealthSystem HS => hs;
+    #endregion
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -18,5 +21,4 @@ public class AI : MonoBehaviour
     {
         
     }
-    #endregion
 }

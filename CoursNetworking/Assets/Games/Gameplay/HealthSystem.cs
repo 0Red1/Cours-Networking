@@ -31,6 +31,8 @@ public class HealthSystem : NetworkBehaviour
         {
             _currentHealth.Value = maxHealth;
         }
+        _currentHealth.Value = maxHealth;
+        Debug.Log(_currentHealth.Value);
     }
 
     // Update is called once per frame
@@ -61,7 +63,7 @@ public class HealthSystem : NetworkBehaviour
         _currentHealth.Value -= damage;
     }
 
-    [ServerRpc(RequireOwnership = false)]
+    [Rpc(SendTo.Server ,RequireOwnership = false)]
     public void TakeDamageServerRPC(float damage)
     {
         ApplyDamage(damage);
