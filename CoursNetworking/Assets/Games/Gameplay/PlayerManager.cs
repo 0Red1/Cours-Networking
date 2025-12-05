@@ -45,6 +45,7 @@ public class PlayerManager : MonoBehaviour
         if (!activePlayers.Contains(newPlayer))
         {
             activePlayers.Add(newPlayer);
+            CameraManager.Instance.RegisterPlayer(newPlayer.transform, newPlayer.IsOwner);
         }
     }
 
@@ -79,12 +80,12 @@ public class PlayerManager : MonoBehaviour
     {
         foreach (Character player in activePlayers)
         {
-            // On cherche le joueur dont l'OwnerClientId correspond à l'ID recherché
+            // On cherche le joueur dont l'OwnerClientId correspond ï¿½ l'ID recherchï¿½
             if (player.OwnerClientId == clientId)
             {
                 return player;
             }
         }
-        return null; // Non trouvé
+        return null; // Non trouvï¿½
     }
 }

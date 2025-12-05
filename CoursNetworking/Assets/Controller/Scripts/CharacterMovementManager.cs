@@ -37,12 +37,12 @@ public class CharacterMovementManager : StateManager<CharacterMovementManager.Mo
     {
         if (!IsOwner)
             return;
-        
+
         RunCurrentStateUpdate();
         
         MovementStates nextState = CurrentState.GetNextState();
 
-        if (nextState != MovementStates.Run)
+        if (nextState != m_movementState)
         {
             TransitionToStateLocal(nextState);
         }
@@ -62,12 +62,22 @@ public class CharacterMovementManager : StateManager<CharacterMovementManager.Mo
     public void Dash()
     {
         TransitionToStateLocal(MovementStates.Run);
+        m_movementState = MovementStates.Run;
     }
 
     public void Stop(bool isStop)
     {
         Debug.Log(isStop);
-        CurrentState = isStop ? States[MovementStates.Stop] : States[MovementStates.Walk];
+        if (isStop)
+        {
+            TransitionToStateLocal(MovementStates.Stop);
+            m_movementState = MovementStates.Stop;
+        }
+        else
+        {
+            TransitionToStateLocal(MovementStates.Walk);
+            m_movementState = MovementStates.Walk;
+        }
     }
 
     public Vector3 GetMoveDirection()

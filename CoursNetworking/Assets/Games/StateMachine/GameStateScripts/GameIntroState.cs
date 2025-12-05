@@ -5,7 +5,7 @@ public class GameIntroState : BaseState<GameManager.GameStates>
 {
     #region Variables
     private GameManager _gameManager;
-    private const float DisplayDuration = 7f;
+    private const float DisplayDuration = 1f;
     private float _timeRemaining;
     #endregion
 
@@ -43,7 +43,7 @@ public class GameIntroState : BaseState<GameManager.GameStates>
             if (_gameManager.playerManager.GetPlayerCount() >= 2 && _timeRemaining <= 0f)
             {
                 Debug.Log($"[IntroState] CONDITION R�USSIE : 2 joueurs pr�ts. Passage � InGame.");
-                return GameManager.GameStates.InGame;
+                return GameManager.GameStates.MainGame;
             }
         }
         return StateKey;

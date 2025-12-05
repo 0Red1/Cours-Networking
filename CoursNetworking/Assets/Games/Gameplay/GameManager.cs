@@ -10,7 +10,8 @@ public class GameManager : StateManager<GameManager.GameStates>
         Intro,
         InGame,
         EndGame,
-        ReturnMenu
+        ReturnMenu,
+        MainGame,
     }
 
     public PlayerManager playerManager;
@@ -34,6 +35,7 @@ public class GameManager : StateManager<GameManager.GameStates>
         States.Add(GameStates.InGame, new GameInGameState(this,GameStates.InGame));
         States.Add(GameStates.EndGame, new GameEndGameState(this, GameStates.EndGame));
         States.Add(GameStates.ReturnMenu, new GameReturnMenuState(this, GameStates.ReturnMenu));
+        States.Add(GameStates.MainGame, new GameMainGameState(this, GameStates.MainGame));
 
         if (_instance != null)
         {
@@ -94,7 +96,7 @@ public class GameManager : StateManager<GameManager.GameStates>
     {
         if (!IsServer)
         {
-            Debug.LogWarning($"[FSM Net] Le client a tenté de changer l'état. Requête ignorée.");
+            Debug.LogWarning($"[FSM Net] Le client a tentï¿½ de changer l'ï¿½tat. Requï¿½te ignorï¿½e.");
             return;
         }
 
