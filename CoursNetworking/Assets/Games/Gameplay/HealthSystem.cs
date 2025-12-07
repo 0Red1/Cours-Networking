@@ -31,8 +31,6 @@ public class HealthSystem : NetworkBehaviour
         {
             _currentHealth.Value = maxHealth;
         }
-        _currentHealth.Value = maxHealth;
-        Debug.Log(_currentHealth.Value);
     }
 
     // Update is called once per frame
@@ -61,11 +59,32 @@ public class HealthSystem : NetworkBehaviour
         if (!IsServer) return;
 
         _currentHealth.Value -= damage;
+
+        if (_currentHealth.Value <= 0)
+        {
+            Die();
+        }
     }
 
     [Rpc(SendTo.Server ,RequireOwnership = false)]
     public void TakeDamageServerRPC(float damage)
     {
         ApplyDamage(damage);
+    }
+
+    void Die()
+    {
+        if (!IsServer) return;
+
+        NetworkObject networkObject = GetComponent<NetworkObject>();
+
+        if (networkObject != null) 
+        {
+            networkObject.Despawn();
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }
