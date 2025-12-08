@@ -10,6 +10,7 @@ public class InputController : MonoBehaviour
 
     private InputAction m_moveAction;
     private InputAction m_dashAction;
+    private InputAction m_attackAction;
     private InputAction m_skill1Action;
     private InputAction m_skill2Action;
     private InputAction m_skill3Action;
@@ -33,6 +34,7 @@ public class InputController : MonoBehaviour
         
         m_moveAction = InputSystem.actions.FindAction("Move");
         m_dashAction = InputSystem.actions.FindAction("Dash");
+        m_attackAction = InputSystem.actions.FindAction("Attack");
         m_skill1Action = InputSystem.actions.FindAction("Skill1");
         m_skill2Action = InputSystem.actions.FindAction("Skill2");
         m_skill3Action = InputSystem.actions.FindAction("Skill3");
@@ -43,6 +45,7 @@ public class InputController : MonoBehaviour
     {
         inputAction.FindActionMap("Player").Enable();
         m_dashAction.performed += OnDashPerformed;
+        m_attackAction.performed += OnAttackPerformed;
         m_skill1Action.performed += OnSkill1Performed;
         m_skill2Action.performed += OnSkill2Performed;
         m_skill3Action.performed += OnSkill3Performed;
@@ -81,6 +84,11 @@ public class InputController : MonoBehaviour
     void OnDashPerformed(InputAction.CallbackContext context)
     {
         targetCharacter.movementController.Dash();
+    }
+
+    void OnAttackPerformed(InputAction.CallbackContext context)
+    {
+        targetCharacter.skillsPlayer.BaseAttack();
     }
 
     void OnSkill1Performed(InputAction.CallbackContext context)

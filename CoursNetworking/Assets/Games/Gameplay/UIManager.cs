@@ -7,6 +7,11 @@ public class UIManager : MonoBehaviour
 {
     #region Variables
     public GameObject waitingPan;
+
+    [Header("TimeBeforeStartGame")]
+    public GameObject waitingStartGamePan;
+    [SerializeField] private TMP_Text timerBeforeStartGameTxt;
+
     public GameObject timerPan;
     [SerializeField] private TMP_Text timerTxt;
 
@@ -68,6 +73,29 @@ public class UIManager : MonoBehaviour
             waitingPan.SetActive(false);
         }
         Debug.Log("[UIManager] Masquage de l'écran d'attente.");
+    }
+
+    public void ShowWaitingStartGameScreen()
+    {
+        if (waitingStartGamePan != null)
+        {
+            waitingStartGamePan.SetActive(true);
+        }
+        Debug.Log("[UIManager] Affichage de l'écran d'attente du début de la partie.");
+    }
+
+    public void HideWaitingStartGameScreen()
+    {
+        if (waitingStartGamePan != null)
+        {
+            waitingStartGamePan.SetActive(false);
+        }
+        Debug.Log("[UIManager] Masquage de l'écran d'attente du début de la partie.");
+    }
+
+    public void UpdateTimerBeforeStartGame(float timer)
+    {
+        timerBeforeStartGameTxt.text = timer.ToString("0");
     }
 
     public void UpdateUITimer(float timer)

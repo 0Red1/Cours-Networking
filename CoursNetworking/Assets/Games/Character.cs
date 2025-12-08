@@ -11,6 +11,7 @@ public class Character : NetworkBehaviour
     public CharacterAnimationsController animationsController;
     public CharacterSkillsPlayer skillsPlayer;
     public HealthSystem healthSystem;
+    public AttackDamageLogic attackDamageLogic;
 
     private PlayerManager _playerManager;
     #endregion
@@ -30,8 +31,16 @@ public class Character : NetworkBehaviour
         movementController = GetComponent<CharacterMovementManager>();
         animationsController = GetComponent<CharacterAnimationsController>();
         skillsPlayer = GetComponent<CharacterSkillsPlayer>();
+        healthSystem = GetComponent<HealthSystem>();
+        attackDamageLogic = GetComponent<AttackDamageLogic>();
 
         movementController.SetManager(this);
+
+        if (attackDamageLogic != null) 
+        { 
+            attackDamageLogic.SetOwner(gameObject);
+        }
+
         _playerManager = PlayerManager.Instance;
     }
 
@@ -41,7 +50,6 @@ public class Character : NetworkBehaviour
         if (_playerManager != null)
         {
             _playerManager.AddPlayer(OwnerClientId, this);
-            Debug.Log($"[Char Log] Joueur {gameObject.name} enregistr�. Compte PlayerManager : {_playerManager.GetPlayerCount()}");
         }
     }
 

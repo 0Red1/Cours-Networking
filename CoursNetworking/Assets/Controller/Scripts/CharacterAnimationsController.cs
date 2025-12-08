@@ -1,6 +1,7 @@
+using Unity.Netcode;
 using UnityEngine;
 
-public class CharacterAnimationsController : MonoBehaviour
+public class CharacterAnimationsController : NetworkBehaviour
 {
     #region Variables
     [SerializeField] private Animator animator;
@@ -26,5 +27,16 @@ public class CharacterAnimationsController : MonoBehaviour
     public void SetDash(bool dash)
     {
         animator.SetBool("Dash", dash);
+    }
+
+    public void SetAttack()
+    {
+        animator.SetTrigger("Attack");
+    }
+
+    //[ClientRpc]
+    public void SetDamage() 
+    {
+        animator.SetTrigger("Damage");
     }
 }

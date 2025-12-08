@@ -59,7 +59,6 @@ public class PlayerManager : MonoBehaviour
         { 
             player.movementController.Stop(!isActive);
         }
-        Debug.Log($"[PlayerManager] Contr�les des joueurs chang�s � : {isActive}");
     }
 
     public int GetPlayerScore(int playerIndex)

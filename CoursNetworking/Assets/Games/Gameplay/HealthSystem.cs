@@ -7,6 +7,8 @@ public class HealthSystem : NetworkBehaviour
     #region Variables
     [SerializeField] private float maxHealth = 100f;
 
+    [SerializeField] private CharacterAnimationsController characterAnimationsController;
+
     private readonly NetworkVariable<float> _currentHealth = new NetworkVariable<float>();
 
     public event Action<ulong, float> OnHealthChanged;
@@ -30,6 +32,7 @@ public class HealthSystem : NetworkBehaviour
         if (IsServer)
         {
             _currentHealth.Value = maxHealth;
+            characterAnimationsController = GetComponent<CharacterAnimationsController>();
         }
     }
 
@@ -59,6 +62,7 @@ public class HealthSystem : NetworkBehaviour
         if (!IsServer) return;
 
         _currentHealth.Value -= damage;
+        characterAnimationsController.SetDamage();
 
         if (_currentHealth.Value <= 0)
         {
@@ -80,11 +84,7 @@ public class HealthSystem : NetworkBehaviour
 
         if (networkObject != null) 
         {
-            networkObject.Despawn();
-        }
-        else
-        {
-            Destroy(gameObject);
+            networkObject.Despawn(true);
         }
     }
 }

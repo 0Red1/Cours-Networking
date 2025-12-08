@@ -7,6 +7,7 @@ public class GameIntroState : BaseState<GameManager.GameStates>
     private GameManager _gameManager;
     private const float DisplayDuration = 7f;
     private float _timeRemaining;
+    private bool changePan = false;
     #endregion
 
     public GameIntroState(GameManager context, GameManager.GameStates key) : base(key)
@@ -16,33 +17,36 @@ public class GameIntroState : BaseState<GameManager.GameStates>
 
     public override void EnterState()
     {
-        Debug.Log("[IntroState] -> Entr�e. D�sactivation des contr�les et affichage UI.");
         _gameManager.uiManager.ShowWaitingScreen();
         _timeRemaining = DisplayDuration;
     }
 
     public override void ExitState()
     {
-        _gameManager.uiManager.HideWaitingScreen();
-        Debug.Log("[IntroState] <- Sortie. Nettoyage (Masquer UI).");
+        _gameManager.uiManager.HideWaitingStartGameScreen();
     }
 
     public override void UpdateState()
     {
         if (_gameManager.playerManager.GetPlayerCount() >= 2)
         {
-            _gameManager.uiManager.HideWaitingScreen();
+            if (changePan == false) {
+                _gameManager.uiManager.HideWaitingScreen();
+                _gameManager.uiManager.ShowWaitingStartGameScreen();
+                changePan = true;
+            }
+            
             _timeRemaining -= Time.deltaTime;
+            _gameManager.uiManager.UpdateTimerBeforeStartGame(_timeRemaining);
         }
     }
 
     public override GameManager.GameStates GetNextState()
     {
-        if (Unity.Netcode.NetworkManager.Singleton.IsServer)
+        if (NetworkManager.Singleton.IsServer)
         {
             if (_gameManager.playerManager.GetPlayerCount() >= 2 && _timeRemaining <= 0f)
             {
-                Debug.Log($"[IntroState] CONDITION R�USSIE : 2 joueurs pr�ts. Passage � InGame.");
                 return GameManager.GameStates.InGame;
             }
         }
