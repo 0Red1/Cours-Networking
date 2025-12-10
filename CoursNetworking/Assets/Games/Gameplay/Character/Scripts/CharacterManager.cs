@@ -13,7 +13,7 @@ public class CharacterManager : NetworkBehaviour
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
-    private void OnDestroy()
+    public override void OnDestroy()
     {
         NetworkManager.OnClientConnectedCallback -= HandleClientConnected;
         NetworkManager.OnClientDisconnectCallback -= HandleClientStopped;
@@ -49,7 +49,7 @@ public class CharacterManager : NetworkBehaviour
         }
         else
         {
-            newCharacter = Instantiate(m_characterPrefab,  new Vector3(Random.Range(-5f, 5f), 0f, Random.Range(-5f, 5f)), Quaternion.identity);
+            newCharacter = Instantiate(m_characterPrefab,  new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-2f, 2f)), Quaternion.identity);
             m_character.Add(a_clientId, newCharacter);
         }
 

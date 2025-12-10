@@ -34,7 +34,7 @@ public class MovementWalkState : BaseState<CharacterMovementManager.MovementStat
         HandleFlip(direction.x);
 
         float speed = direction.magnitude;
-        m_movementManager.GetCharacter().UpdateMovementAnimation(speed);
+        m_movementManager.GetCharacter().animationsController.SetSpeed(speed);
     }
     
     private void HandleFlip(float xInput)

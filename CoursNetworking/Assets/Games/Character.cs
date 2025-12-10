@@ -35,7 +35,10 @@ public class Character : NetworkBehaviour
         attackDamageLogic = GetComponent<AttackDamageLogic>();
         _playerManager = PlayerManager.Instance;
 
-        movementController.SetManager(this);
+        if (movementController != null)
+        {
+            movementController.SetManager(this);
+        }
 
         if (attackDamageLogic != null) 
         { 
@@ -55,26 +58,5 @@ public class Character : NetworkBehaviour
         {
             _playerManager.AddPlayer(OwnerClientId, this);
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    public void UpdateMovementAnimation(float speed)
-    {
-        animationsController.SetSpeed(speed);
-    }
-
-    public void PlayDashAnim()
-    {
-        animationsController.SetDash(true);
-    }
-
-    public void StopDashAnim()
-    {
-        animationsController.SetDash(false);
     }
 }

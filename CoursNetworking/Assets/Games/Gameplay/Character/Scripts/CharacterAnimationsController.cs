@@ -10,13 +10,13 @@ public class CharacterAnimationsController : NetworkBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void SetSpeed(float speed)
@@ -34,7 +34,7 @@ public class CharacterAnimationsController : NetworkBehaviour
         animator.SetTrigger("Attack");
     }
 
-    public void SetDamage() 
+    public void SetDamage()
     {
         animator.SetTrigger("Damage");
     }

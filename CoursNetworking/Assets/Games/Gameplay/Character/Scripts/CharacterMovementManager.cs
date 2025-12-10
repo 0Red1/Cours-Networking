@@ -13,7 +13,7 @@ public class CharacterMovementManager : StateManager<CharacterMovementManager.Mo
     
     [SerializeField] private float moveSpeed = 5f;
 
-    private bool facingRight = true;
+    //private bool facingRight = true;
     private Vector3 m_moveDirection;
     private CharacterController m_cc;
     private Character m_character;

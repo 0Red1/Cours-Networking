@@ -25,14 +25,14 @@ public class MovementRunState : BaseState<CharacterMovementManager.MovementState
         else if (Mathf.Approximately(scale.x, -1f)) m_facingRight = false;
         
         m_lastDirection = m_movementManager.GetMoveDirection();
-        m_movementManager.GetCharacter().PlayDashAnim();
+        m_movementManager.GetCharacter().animationsController.SetDash(true);
         m_currentDashTime = m_dashTime;
     }
 
     public override void ExitState()
     {
         Debug.Log("Fin du dash");
-        m_movementManager.GetCharacter().StopDashAnim();
+        m_movementManager.GetCharacter().animationsController.SetDash(false);
     }
 
     public override void UpdateState()
