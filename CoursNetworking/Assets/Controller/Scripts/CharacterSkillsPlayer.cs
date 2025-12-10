@@ -1,8 +1,13 @@
+using System;
 using Unity.Netcode;
 using UnityEngine;
 
 public class CharacterSkillsPlayer : NetworkBehaviour
 {
+    #region Variables
+    public event Action OnAttackTriggered;
+    #endregion
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -32,6 +37,10 @@ public class CharacterSkillsPlayer : NetworkBehaviour
 
     public void BaseAttack()
     {
+        if (!IsOwner) return;
+
+        OnAttackTriggered?.Invoke();
+
         RequestDamageExcutionServerRpc();
     }
 

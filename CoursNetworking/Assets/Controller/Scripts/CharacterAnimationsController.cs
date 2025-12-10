@@ -34,7 +34,6 @@ public class CharacterAnimationsController : NetworkBehaviour
         animator.SetTrigger("Attack");
     }
 
-    //[ClientRpc]
     public void SetDamage() 
     {
         animator.SetTrigger("Damage");

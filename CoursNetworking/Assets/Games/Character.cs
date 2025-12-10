@@ -29,10 +29,11 @@ public class Character : NetworkBehaviour
     private void Awake()
     {
         movementController = GetComponent<CharacterMovementManager>();
-        animationsController = GetComponent<CharacterAnimationsController>();
         skillsPlayer = GetComponent<CharacterSkillsPlayer>();
+        animationsController = GetComponent<CharacterAnimationsController>();
         healthSystem = GetComponent<HealthSystem>();
         attackDamageLogic = GetComponent<AttackDamageLogic>();
+        _playerManager = PlayerManager.Instance;
 
         movementController.SetManager(this);
 
@@ -41,7 +42,10 @@ public class Character : NetworkBehaviour
             attackDamageLogic.SetOwner(gameObject);
         }
 
-        _playerManager = PlayerManager.Instance;
+        if (skillsPlayer != null && animationsController != null)
+        {
+            skillsPlayer.OnAttackTriggered += animationsController.SetAttack;
+        }
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
