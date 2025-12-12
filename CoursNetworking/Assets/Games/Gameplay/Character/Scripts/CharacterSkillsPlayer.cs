@@ -6,18 +6,25 @@ public class CharacterSkillsPlayer : NetworkBehaviour
 {
     #region Variables
     public event Action OnAttackTriggered;
+
+    [SerializeField] private float attackCooldown = 5f;
+    private float timeSinceLastAttack = 0f;
     #endregion
+
+    private bool CanAttack => timeSinceLastAttack >= attackCooldown;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (!IsOwner) return;
+
+        timeSinceLastAttack += Time.deltaTime;
     }
 
     public void Skill1()
@@ -38,9 +45,11 @@ public class CharacterSkillsPlayer : NetworkBehaviour
     public void BaseAttack()
     {
         if (!IsOwner) return;
+        if (!CanAttack) return;
 
-        OnAttackTriggered?.Invoke();
+        timeSinceLastAttack = 0f;
 
+        SyncAttackEventClientRpc();
         RequestDamageExcutionServerRpc();
     }
 
@@ -49,9 +58,15 @@ public class CharacterSkillsPlayer : NetworkBehaviour
     {
         AttackDamageLogic damageLogic = GetComponent<AttackDamageLogic>();
 
-        if (damageLogic != null) 
+        if (damageLogic != null)
         {
             damageLogic.ExecuteDamageCheck(1);
         }
+    }
+
+    [ClientRpc]
+    private void SyncAttackEventClientRpc()
+    {
+        OnAttackTriggered?.Invoke();
     }
 }

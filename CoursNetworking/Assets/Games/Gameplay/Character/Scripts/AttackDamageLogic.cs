@@ -31,7 +31,23 @@ public class AttackDamageLogic : NetworkBehaviour
         {
             if (other.gameObject == ownerObject)
             {
+                Debug.Log("Je veux pas me taper tout seul");
                 continue;
+            }
+
+            if (ownerObject.CompareTag("Player"))
+            {
+                if (other.gameObject.CompareTag("Player"))
+                {
+                    continue;
+                }
+            }
+            else if (ownerObject.CompareTag("Enemy"))
+            {
+                if (!other.gameObject.CompareTag("Player"))
+                {
+                    continue;
+                }
             }
 
             DamageReceiver dr = other.GetComponent<DamageReceiver>();

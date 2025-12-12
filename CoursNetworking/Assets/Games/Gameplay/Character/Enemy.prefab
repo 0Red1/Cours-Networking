@@ -85,9 +85,10 @@ GameObject:
   - component: {fileID: 4977197557512239336}
   - component: {fileID: 3586760902304836163}
   - component: {fileID: 6585075765066979090}
+  - component: {fileID: 1327708506685678727}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -144,7 +145,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 2
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -168,7 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 3519936971
+  GlobalObjectIdHash: 152665522
   InScenePlacedSourceGlobalObjectIdHash: 152665522
   DeferredDespawnTick: 0
   Ownership: 1
@@ -272,6 +273,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterSkillsPlayer
   ShowTopMostFoldoutHeaderGroup: 1
+  attackCooldown: 1
 --- !u!114 &3586760902304836163
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,7 +287,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealthSystem
   ShowTopMostFoldoutHeaderGroup: 1
-  maxHealth: 3
+  maxHealth: 10
   characterAnimationsController: {fileID: 8533824257852557843}
 --- !u!114 &6585075765066979090
 MonoBehaviour:
@@ -299,8 +301,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e8079e8839f60b408848b240761d316, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AI
-  testTarget: {fileID: 0}
+  ShowTopMostFoldoutHeaderGroup: 1
+  target: {fileID: 0}
   state: 0
+  overlapRadius: 1
+  yOffset: 1
+--- !u!114 &1327708506685678727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7366702146589550703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5e7e2306e333f64391e8a7369e48820, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AttackDamageLogic
+  ShowTopMostFoldoutHeaderGroup: 1
+  overlapRadius: 1
+  yOffset: 1
+  damageableLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &8053421018762217734
 GameObject:
   m_ObjectHideFlags: 0

@@ -32,6 +32,73 @@ Transform:
   - {fileID: 3079299143215645776}
   m_Father: {fileID: 2169930477839574037}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3262774342129347988
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2519748889904182575}
+  - component: {fileID: 4718379366955830434}
+  - component: {fileID: 6351273952139361644}
+  m_Layer: 7
+  m_Name: Damage Zone
+  m_TagString: Player
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2519748889904182575
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3262774342129347988}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2169930477839574037}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &4718379366955830434
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3262774342129347988}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.7, y: 2, z: 0.7}
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &6351273952139361644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3262774342129347988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 605b9f7781df47a46b9ab916e52b46c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamageReceiver
+  hs: {fileID: 4623443347131543177}
 --- !u!1 &4069614721761643276
 GameObject:
   m_ObjectHideFlags: 0
@@ -52,7 +119,7 @@ GameObject:
   - component: {fileID: 5005362261216714819}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -71,6 +138,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 402342970951085374}
+  - {fileID: 2519748889904182575}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!143 &4580435539038965967
@@ -228,6 +296,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterSkillsPlayer
   ShowTopMostFoldoutHeaderGroup: 1
+  attackCooldown: 0.5
 --- !u!114 &4623443347131543177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,7 +310,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealthSystem
   ShowTopMostFoldoutHeaderGroup: 1
-  maxHealth: 100
+  maxHealth: 10
   characterAnimationsController: {fileID: 0}
 --- !u!114 &5005362261216714819
 MonoBehaviour:
@@ -359,6 +428,13 @@ MonoBehaviour:
     TransitionDuration: 0.25
     TriggerNameHash: 1080829965
     TransitionIndex: 2
+  - IsCrossFadeExit: 0
+    Layer: 0
+    OriginatingState: 2081823275
+    DestinationState: -874466612
+    TransitionDuration: 0.25
+    TriggerNameHash: 375673178
+    TransitionIndex: 3
   m_Animator: {fileID: 8961022605380640298}
 --- !u!4 &3079299143215645776 stripped
 Transform:

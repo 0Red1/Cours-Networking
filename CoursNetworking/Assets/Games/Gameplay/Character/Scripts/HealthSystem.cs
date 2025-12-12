@@ -70,7 +70,7 @@ public class HealthSystem : NetworkBehaviour
         }
     }
 
-    [Rpc(SendTo.Server ,RequireOwnership = false)]
+    [Rpc(SendTo.Server, RequireOwnership = false)]
     public void TakeDamageServerRPC(float damage)
     {
         ApplyDamage(damage);
