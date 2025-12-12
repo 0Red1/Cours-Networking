@@ -5,7 +5,6 @@ public class CameraManager : MonoBehaviour
 {
     public static CameraManager Instance;
     
-    [SerializeField] private Camera camera;
     [SerializeField] private CinemachineTargetGroup targetGroup;
 
     public void Awake()

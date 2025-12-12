@@ -13,7 +13,7 @@ public class CharacterManager : NetworkBehaviour
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
-    private void OnDestroy()
+    public override void OnDestroy()
     {
         NetworkManager.OnClientConnectedCallback -= HandleClientConnected;
         NetworkManager.OnClientDisconnectCallback -= HandleClientStopped;

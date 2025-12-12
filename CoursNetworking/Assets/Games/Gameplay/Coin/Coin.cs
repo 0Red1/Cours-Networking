@@ -1,8 +1,10 @@
+using System;
 using Unity.Netcode;
 using UnityEngine;
 
 public class Coin : NetworkBehaviour
 {
+    public static event Action OnCoinRecover;
     private void OnTriggerEnter(Collider other)
     {
         Character character = other.GetComponent<Character>();
@@ -11,6 +13,7 @@ public class Coin : NetworkBehaviour
         {
             if (character.IsOwner)
             {
+                OnCoinRecover?.Invoke();
                 RequestDestroyAndScoreUpdateServerRpc(character.NetworkObject);
             }
         }
