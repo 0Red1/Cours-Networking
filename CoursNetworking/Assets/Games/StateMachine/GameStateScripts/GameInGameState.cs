@@ -13,7 +13,7 @@ public class GameInGameState : BaseState<GameManager.GameStates>
 
     public override void EnterState()
     {
-        Debug.Log("[InGame] >>> Entrée dans l'état de jeu !");
+        Debug.Log("[InGame] >>> Entrï¿½e dans l'ï¿½tat de jeu !");
         _gameManager.playerManager.SetPlayerActive(true);
         _gameManager.ResetTimer();
 
@@ -23,12 +23,17 @@ public class GameInGameState : BaseState<GameManager.GameStates>
             {
                 _gameManager.coinManager.InitializeCoin(5);
             }
+            if (_gameManager.enemyManager != null)
+            {
+                Debug.Log("Instanciate EnnemyManager");
+                _gameManager.enemyManager.InitializeEnemy(3);
+            }
         }
     }
 
     public override void ExitState()
     {
-        Debug.Log("[InGame] <<< Sortie de l'état de jeu.");
+        Debug.Log("[InGame] <<< Sortie de l'ï¿½tat de jeu.");
         _gameManager.playerManager.SetPlayerActive(false);
     }
 
@@ -42,11 +47,15 @@ public class GameInGameState : BaseState<GameManager.GameStates>
 
     public override GameManager.GameStates GetNextState()
     {
-        if (_gameManager.GetRemaingTimer() <= 0f)
+        if (_gameManager.enemyManager.allEnemiesDead())
         {
-            Debug.Log("[InGame] CONDITION RÉUSSIE : Le timer est à zéro. Passage à EndGame.");
             return GameManager.GameStates.EndGame;
         }
+        /*if (_gameManager.GetRemaingTimer() <= 0f)
+        {
+            Debug.Log("[InGame] CONDITION Rï¿½USSIE : Le timer est ï¿½ zï¿½ro. Passage ï¿½ EndGame.");
+            return GameManager.GameStates.EndGame;
+        }*/
         return StateKey;
     }
 

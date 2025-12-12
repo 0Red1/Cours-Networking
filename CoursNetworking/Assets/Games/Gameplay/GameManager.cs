@@ -17,6 +17,7 @@ public class GameManager : StateManager<GameManager.GameStates>
     public PlayerManager playerManager;
     public UIManager uiManager;
     public CoinManager coinManager;
+    public EnemyManager enemyManager;
 
     private readonly NetworkVariable<float> _timer = new NetworkVariable<float>(120f);
     private readonly NetworkVariable<GameStates> _netState = new NetworkVariable<GameStates>(GameStates.Intro);

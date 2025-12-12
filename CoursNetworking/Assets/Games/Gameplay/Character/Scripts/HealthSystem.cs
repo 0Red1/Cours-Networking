@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class HealthSystem : NetworkBehaviour
 {
+    
     #region Variables
     [SerializeField] private float maxHealth = 100f;
 
@@ -12,6 +13,7 @@ public class HealthSystem : NetworkBehaviour
     private readonly NetworkVariable<float> _currentHealth = new NetworkVariable<float>();
 
     public event Action<ulong, float> OnHealthChanged;
+    public static event Action<GameObject> OnCharacterDeath;
     #endregion
 
     #region Properties
@@ -84,6 +86,7 @@ public class HealthSystem : NetworkBehaviour
 
         if (networkObject != null) 
         {
+            OnCharacterDeath?.Invoke(networkObject.gameObject);
             networkObject.Despawn(true);
         }
     }
