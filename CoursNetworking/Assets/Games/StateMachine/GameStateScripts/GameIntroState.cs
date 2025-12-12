@@ -5,7 +5,7 @@ public class GameIntroState : BaseState<GameManager.GameStates>
 {
     #region Variables
     private GameManager _gameManager;
-    private const float DisplayDuration = 1f;
+    private const float DisplayDuration = 7f;
     private float _timeRemaining;
     #endregion
 
@@ -24,6 +24,7 @@ public class GameIntroState : BaseState<GameManager.GameStates>
     public override void ExitState()
     {
         _gameManager.uiManager.HideWaitingScreen();
+        _gameManager.uiManager.HideWaitingStartGameScreen();
         Debug.Log("[IntroState] <- Sortie. Nettoyage (Masquer UI).");
     }
 
@@ -32,6 +33,8 @@ public class GameIntroState : BaseState<GameManager.GameStates>
         if (_gameManager.playerManager.GetPlayerCount() >= 2)
         {
             _gameManager.uiManager.HideWaitingScreen();
+            _gameManager.uiManager.ShowWaitingStartGameScreen();
+            _gameManager.uiManager.UpdateTimerBeforeStartGame(_timeRemaining);
             _timeRemaining -= Time.deltaTime;
         }
     }
@@ -43,7 +46,7 @@ public class GameIntroState : BaseState<GameManager.GameStates>
             if (_gameManager.playerManager.GetPlayerCount() >= 2 && _timeRemaining <= 0f)
             {
                 Debug.Log($"[IntroState] CONDITION R�USSIE : 2 joueurs pr�ts. Passage � InGame.");
-                return GameManager.GameStates.MainGame;
+                return GameManager.GameStates.InGame;
             }
         }
         return StateKey;
