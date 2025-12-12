@@ -5,9 +5,8 @@ public class GameIntroState : BaseState<GameManager.GameStates>
 {
     #region Variables
     private GameManager _gameManager;
-    private const float DisplayDuration = 7f;
+    private const float DisplayDuration = 1f;
     private float _timeRemaining;
-    private bool changePan = false;
     #endregion
 
     public GameIntroState(GameManager context, GameManager.GameStates key) : base(key)
@@ -17,37 +16,34 @@ public class GameIntroState : BaseState<GameManager.GameStates>
 
     public override void EnterState()
     {
+        Debug.Log("[IntroState] -> Entr�e. D�sactivation des contr�les et affichage UI.");
         _gameManager.uiManager.ShowWaitingScreen();
         _timeRemaining = DisplayDuration;
     }
 
     public override void ExitState()
     {
-        _gameManager.uiManager.HideWaitingStartGameScreen();
+        _gameManager.uiManager.HideWaitingScreen();
+        Debug.Log("[IntroState] <- Sortie. Nettoyage (Masquer UI).");
     }
 
     public override void UpdateState()
     {
         if (_gameManager.playerManager.GetPlayerCount() >= 2)
         {
-            if (changePan == false) {
-                _gameManager.uiManager.HideWaitingScreen();
-                _gameManager.uiManager.ShowWaitingStartGameScreen();
-                changePan = true;
-            }
-            
+            _gameManager.uiManager.HideWaitingScreen();
             _timeRemaining -= Time.deltaTime;
-            _gameManager.uiManager.UpdateTimerBeforeStartGame(_timeRemaining);
         }
     }
 
     public override GameManager.GameStates GetNextState()
     {
-        if (NetworkManager.Singleton.IsServer)
+        if (Unity.Netcode.NetworkManager.Singleton.IsServer)
         {
             if (_gameManager.playerManager.GetPlayerCount() >= 2 && _timeRemaining <= 0f)
             {
-                return GameManager.GameStates.InGame;
+                Debug.Log($"[IntroState] CONDITION R�USSIE : 2 joueurs pr�ts. Passage � InGame.");
+                return GameManager.GameStates.MainGame;
             }
         }
         return StateKey;
