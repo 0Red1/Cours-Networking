@@ -26,6 +26,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text scoreJ1Txt;
     [SerializeField] private TMP_Text scoreJ2Txt;
     [SerializeField] private TMP_Text winnerTxt;
+
+    private static UIManager _instance;
     #endregion
 
     #region Properties
@@ -34,19 +36,19 @@ public class UIManager : MonoBehaviour
         get { return timerTxt; }
         set { timerTxt = value; }
     }
+
+    public static UIManager Instance => _instance;
     #endregion
 
     #region Built-in Methods
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Awake()
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (_instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        _instance = this;
     }
     #endregion
 
@@ -60,7 +62,7 @@ public class UIManager : MonoBehaviour
         { 
             waitingPan.SetActive(true);
         }
-        Debug.Log("[UIManager] Affichage de l'écran d'attente.");
+        //Debug.Log("[UIManager] Affichage de l'écran d'attente.");
     }
 
     /// <summary>
@@ -72,7 +74,7 @@ public class UIManager : MonoBehaviour
         {
             waitingPan.SetActive(false);
         }
-        Debug.Log("[UIManager] Masquage de l'écran d'attente.");
+        //Debug.Log("[UIManager] Masquage de l'écran d'attente.");
     }
 
     public void ShowWaitingStartGameScreen()
@@ -81,7 +83,7 @@ public class UIManager : MonoBehaviour
         {
             waitingStartGamePan.SetActive(true);
         }
-        Debug.Log("[UIManager] Affichage de l'écran d'attente du début de la partie.");
+        //Debug.Log("[UIManager] Affichage de l'écran d'attente du début de la partie.");
     }
 
     public void HideWaitingStartGameScreen()
@@ -90,7 +92,7 @@ public class UIManager : MonoBehaviour
         {
             waitingStartGamePan.SetActive(false);
         }
-        Debug.Log("[UIManager] Masquage de l'écran d'attente du début de la partie.");
+        //Debug.Log("[UIManager] Masquage de l'écran d'attente du début de la partie.");
     }
 
     public void UpdateTimerBeforeStartGame(float timer)

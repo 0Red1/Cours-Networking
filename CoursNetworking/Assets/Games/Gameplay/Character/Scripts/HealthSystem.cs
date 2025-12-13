@@ -24,6 +24,12 @@ public class HealthSystem : NetworkBehaviour
     {
         base.OnNetworkSpawn();
         _currentHealth.OnValueChanged += HandleNetworkHealthChanged;
+
+        if (UIManager.Instance != null) 
+        {
+            UIManager.Instance.RegisterHealthSystem(OwnerClientId, this);
+            Debug.Log("Je m'enregistre !");
+        }
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
