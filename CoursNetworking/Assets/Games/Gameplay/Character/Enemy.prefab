@@ -268,7 +268,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealthSystem
   ShowTopMostFoldoutHeaderGroup: 1
-  maxHealth: 10
+  maxHealth: 3
   characterAnimationsController: {fileID: 8533824257852557843}
 --- !u!114 &6585075765066979090
 MonoBehaviour:
