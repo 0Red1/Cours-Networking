@@ -2,24 +2,26 @@ using System;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ArenaController : MonoBehaviour
 {
-    [SerializeField] private GameObject coinPrefab;
+    [SerializeField] private GameObject enemyPrefab;
     
     [SerializeField] private ArenaActivator activator;
-    [SerializeField] private int nbCoin = 10;
-    [SerializeField] private int startCoin = 3;
-    [SerializeField] private int maxCoin = 4;
-    [SerializeField] private float timeToSpawn = 3f;
+    [SerializeField] private int nbEnemy = 10;
+    [SerializeField] private int startEnemy = 3;
+    [SerializeField] private int maxEnemy = 4;
+    [SerializeField] private float timeToSpawn = 4f;
     
-    private int _currentCoin;
-    private int _currentVisibleCoin; 
+    private int _currentEnemy;
+    private int _currentVisibleEnemy; 
     private float _currentTimeToSpawn;
+    [SerializeField] private float loseTimeToEnemy; 
     
     private void Start()
     {
-        _currentCoin = nbCoin;
+        _currentEnemy = nbEnemy;
         _currentTimeToSpawn = 0;
     }
 
@@ -28,22 +30,23 @@ public class ArenaController : MonoBehaviour
         if (_currentTimeToSpawn > 0)
         {
             _currentTimeToSpawn -= Time.deltaTime;
-            if ((int)_currentTimeToSpawn % (int)timeToSpawn <= 1)
-            {
-                InstantiateCoin();
-            }
+        }
+        else if (_currentVisibleEnemy < maxEnemy)
+        {
+            InstantiateEnemy();
+            _currentTimeToSpawn = timeToSpawn;
         }
     }
     
     public void ActivateArena()
     {
-        for (int i = 0; i < startCoin; i++)
+        for (int i = 0; i < startEnemy; i++)
         {
-           InstantiateCoin();
+           InstantiateEnemy();
         }
     }
 
-    private void InstantiateCoin()
+    private void InstantiateEnemy()
     {
         if (!Unity.Netcode.NetworkManager.Singleton.IsServer)
         {
@@ -55,27 +58,24 @@ public class ArenaController : MonoBehaviour
 
         Vector3 spawnLocation = new Vector3(x, 1, z);
 
-        GameObject newCoin = Instantiate(coinPrefab, spawnLocation, Quaternion.identity);
+        GameObject newCoin = Instantiate(enemyPrefab, spawnLocation, Quaternion.identity);
         NetworkObject newCoinNetworkObject = newCoin.GetComponent<NetworkObject>();
 
         if (newCoinNetworkObject != null) 
         {
             newCoinNetworkObject.Spawn();
-            _currentVisibleCoin++;
+            _currentVisibleEnemy++;
         }
     }
     
     private void UnregisteryCoins()
     {
-        _currentCoin -= 1;
-        if (_currentCoin <= 0)
+        _currentEnemy -= 1;
+        _currentVisibleEnemy--;
+        _currentTimeToSpawn = loseTimeToEnemy;
+        if (_currentEnemy <= 0)
         {
             EndArena();
-        }
-        else
-        {
-            _currentVisibleCoin--;
-            _currentTimeToSpawn += timeToSpawn;
         }
     }
 
