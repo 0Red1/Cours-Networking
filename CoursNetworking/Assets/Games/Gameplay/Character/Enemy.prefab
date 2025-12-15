@@ -285,7 +285,7 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   target: {fileID: 0}
   state: 0
-  overlapRadius: 1
+  overlapRadius: 3
   yOffset: 1
 --- !u!114 &1327708506685678727
 MonoBehaviour:
