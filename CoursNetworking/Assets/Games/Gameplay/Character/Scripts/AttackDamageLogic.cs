@@ -55,7 +55,7 @@ public class AttackDamageLogic : NetworkBehaviour
             if (dr != null && dr.HS != null)
             {
                 dr.HS.TakeDamageServerRPC(damageAmount);
-                Debug.Log("CurrentHealth de " + other.gameObject.name + " égal a " + dr.HS.CurrentHealth.Value);
+                Debug.Log("CurrentHealth de " + other.gameObject.name + " ï¿½gal a " + dr.HS.CurrentHealth.Value);
             }
         }
     }
