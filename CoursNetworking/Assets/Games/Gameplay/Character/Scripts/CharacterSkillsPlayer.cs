@@ -64,7 +64,7 @@ public class CharacterSkillsPlayer : NetworkBehaviour
         }
     }
 
-    [ClientRpc]
+    [Rpc(SendTo.ClientsAndHost)]
     private void SyncAttackEventClientRpc()
     {
         OnAttackTriggered?.Invoke();

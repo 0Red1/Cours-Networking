@@ -12,10 +12,18 @@ public class AI : NetworkBehaviour
         Fight
     }
 
+    [Header("Search Target Logic")]
     [SerializeField] private Transform target;
     [SerializeField] private State state;
     [SerializeField] private float overlapRadius = 1f;
     [SerializeField] private float yOffset = 1f;
+
+    [Header("Stagger Logic")]
+    [SerializeField] private float staggerDuration = 0.5f;
+    private float timeSinceHit = 999f;
+
+    public HealthSystem healthSystem;
+    public AttackDamageLogic attackDamageLogic;
 
     private NavMeshAgent _agent;
     private CharacterAnimationsController _characterAnimationsController;
@@ -29,12 +37,24 @@ public class AI : NetworkBehaviour
 
 
     #region Built-in Methods
+    private void Awake()
+    {
+        if (attackDamageLogic != null)
+        {
+            attackDamageLogic.SetOwner(healthSystem);
+        }
+    }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         _agent = GetComponent<NavMeshAgent>();
         _characterAnimationsController = GetComponent<CharacterAnimationsController>();
         _characterSkills = GetComponent<CharacterSkillsPlayer>();
+
+        if (healthSystem != null) 
+        {
+            healthSystem.OnHit += StartStagger;
+        }
     }
 
     // Update is called once per frame
@@ -43,6 +63,14 @@ public class AI : NetworkBehaviour
         if (!IsServer) return;
 
         timeSinceLastSearch += Time.deltaTime;
+        timeSinceHit += Time.deltaTime;
+
+        bool isStaggered = timeSinceHit < staggerDuration;
+
+        if (isStaggered)
+        {
+            Debug.Log(gameObject.name + "se fait taper");
+        }
 
         if (state == State.Wait)
         {
@@ -64,6 +92,7 @@ public class AI : NetworkBehaviour
 
             if (distanceToPlayer <= 1)
             {
+                if (!isStaggered)
                 state = State.Fight;
                 _characterAnimationsController.SetSpeed(0f);
             }
@@ -72,6 +101,12 @@ public class AI : NetworkBehaviour
         if (state == State.Fight)
         {
             _agent.SetDestination(transform.position);
+
+            if (isStaggered)
+            {
+                return;
+            }
+
             _characterSkills.BaseAttack();
         }
     }
@@ -94,6 +129,12 @@ public class AI : NetworkBehaviour
                 state = State.Walk;
             }
         }
+    }
+
+    void StartStagger()
+    {
+        timeSinceHit = 0f;
+        state = State.Wait;
     }
 
     private void OnDrawGizmos()

@@ -27,6 +27,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text scoreJ2Txt;
     [SerializeField] private TMP_Text winnerTxt;
 
+    [SerializeField] private PlayerManager playerManager;
+
     private static UIManager _instance;
     #endregion
 

@@ -12,7 +12,8 @@ public class HealthSystem : NetworkBehaviour
 
     private readonly NetworkVariable<float> _currentHealth = new NetworkVariable<float>();
 
-    public event Action<ulong, float> OnHealthChanged;
+    public event Action OnHit;
+    public event Action<ulong,float> OnHealthChanged;
     public static event Action<GameObject> OnCharacterDeath;
     #endregion
 
@@ -25,12 +26,16 @@ public class HealthSystem : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
-        _currentHealth.OnValueChanged += HandleNetworkHealthChanged;
 
-        if (UIManager.Instance != null) 
+        if (CompareTag("Player"))
         {
-            UIManager.Instance.RegisterHealthSystem(OwnerClientId, this);
-            Debug.Log("Je m'enregistre !");
+            _currentHealth.OnValueChanged += HandleNetworkHealthChanged;
+
+            if (UIManager.Instance != null)
+            {
+                UIManager.Instance.RegisterHealthSystem(OwnerClientId, this);
+                Debug.Log("Je m'enregistre !");
+            }
         }
     }
 
@@ -76,6 +81,8 @@ public class HealthSystem : NetworkBehaviour
         {
             Die();
         }
+
+        OnHit?.Invoke();
     }
 
     [Rpc(SendTo.Server, RequireOwnership = false)]

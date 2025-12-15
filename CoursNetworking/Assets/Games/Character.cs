@@ -42,7 +42,7 @@ public class Character : NetworkBehaviour
 
         if (attackDamageLogic != null) 
         { 
-            attackDamageLogic.SetOwner(gameObject);
+            attackDamageLogic.SetOwner(healthSystem);
         }
 
         if (skillsPlayer != null && animationsController != null)

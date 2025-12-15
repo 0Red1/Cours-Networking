@@ -10,11 +10,11 @@ public class AttackDamageLogic : NetworkBehaviour
     private float damageAmount = 1f;
     #endregion
 
-    private GameObject ownerObject;
+    private HealthSystem ownerHs;
 
-    public void SetOwner(GameObject owner)
+    public void SetOwner(HealthSystem owner)
     {
-        ownerObject = owner;
+        ownerHs = owner;
     }
 
     public void ExecuteDamageCheck(float damage)
@@ -29,20 +29,14 @@ public class AttackDamageLogic : NetworkBehaviour
 
         foreach (Collider other in targets)
         {
-            if (other.gameObject == ownerObject)
-            {
-                Debug.Log("Je veux pas me taper tout seul");
-                continue;
-            }
-
-            if (ownerObject.CompareTag("Player"))
+            if (ownerHs.CompareTag("Player"))
             {
                 if (other.gameObject.CompareTag("Player"))
                 {
                     continue;
                 }
             }
-            else if (ownerObject.CompareTag("Enemy"))
+            else if (ownerHs.CompareTag("Enemy"))
             {
                 if (!other.gameObject.CompareTag("Player"))
                 {
@@ -54,6 +48,10 @@ public class AttackDamageLogic : NetworkBehaviour
 
             if (dr != null && dr.HS != null)
             {
+                if (dr.HS == ownerHs)
+                {
+                    continue;
+                }
                 dr.HS.TakeDamageServerRPC(damageAmount);
                 Debug.Log("CurrentHealth de " + other.gameObject.name + " égal a " + dr.HS.CurrentHealth.Value);
             }

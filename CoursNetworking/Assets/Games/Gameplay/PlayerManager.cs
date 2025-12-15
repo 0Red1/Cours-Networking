@@ -45,9 +45,10 @@ public class PlayerManager : MonoBehaviour
         if (!activePlayers.Contains(newPlayer))
         {
             activePlayers.Add(newPlayer);
-            CameraManager.Instance.RegisterPlayer(newPlayer.transform, newPlayer.IsOwner);
+            //CameraManager.Instance.RegisterPlayer(newPlayer.transform, newPlayer.IsOwner);
         }
     }
+
 
     public int GetPlayerCount()
     {
