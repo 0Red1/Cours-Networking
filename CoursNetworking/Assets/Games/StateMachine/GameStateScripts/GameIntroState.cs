@@ -1,4 +1,6 @@
+using System;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameIntroState : BaseState<GameManager.GameStates>
@@ -7,6 +9,8 @@ public class GameIntroState : BaseState<GameManager.GameStates>
     private GameManager _gameManager;
     private const float DisplayDuration = 7f;
     private float _timeRemaining;
+
+    public static event Action OnIntroStart;
     #endregion
 
     public GameIntroState(GameManager context, GameManager.GameStates key) : base(key)
@@ -18,7 +22,7 @@ public class GameIntroState : BaseState<GameManager.GameStates>
     {
         Debug.Log("[IntroState] -> Entr�e. D�sactivation des contr�les et affichage UI.");
         _gameManager.uiManager.ShowWaitingScreen();
-        _timeRemaining = DisplayDuration;
+        _timeRemaining = 0;
     }
 
     public override void ExitState()
@@ -30,13 +34,19 @@ public class GameIntroState : BaseState<GameManager.GameStates>
 
     public override void UpdateState()
     {
-        if (_gameManager.playerManager.GetPlayerCount() >= 2)
+        if (_timeRemaining > 0)
         {
-            _gameManager.uiManager.HideWaitingScreen();
-            _gameManager.uiManager.ShowWaitingStartGameScreen();
             _gameManager.uiManager.UpdateTimerBeforeStartGame(_timeRemaining);
             _timeRemaining -= Time.deltaTime;
         }
+        else if (_gameManager.playerManager.GetPlayerCount() >= 2)
+        {
+            _gameManager.uiManager.HideWaitingScreen();
+            _gameManager.uiManager.ShowWaitingStartGameScreen();
+            OnIntroStart?.Invoke();
+            _timeRemaining = DisplayDuration;
+        }
+        
     }
 
     public override GameManager.GameStates GetNextState()

@@ -9,6 +9,8 @@ public class CharacterManager : NetworkBehaviour
     [SerializeField]
     private Character m_characterPrefab;
     
+    [SerializeField] private List<GameObject> m_SpawnPoint = new List<GameObject>();
+    
     private Dictionary<ulong, Character> m_character = new Dictionary<ulong, Character>();
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -47,8 +49,16 @@ public class CharacterManager : NetworkBehaviour
         {
             newCharacter = m_character[a_clientId];
         }
+        else if (m_SpawnPoint.Count > 0)
+        {
+            Vector3 position = m_SpawnPoint[0].transform.position;
+            newCharacter = Instantiate(m_characterPrefab, position, Quaternion.identity);
+            m_character.Add(a_clientId, newCharacter);
+            m_SpawnPoint.RemoveAt(0);
+        }
         else
         {
+           
             newCharacter = Instantiate(m_characterPrefab,  new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-2f, 2f)), Quaternion.identity);
             m_character.Add(a_clientId, newCharacter);
         }

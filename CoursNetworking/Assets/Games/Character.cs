@@ -24,8 +24,6 @@ public class Character : NetworkBehaviour
         {
             InputController.Instance.SetCharacter(this);
         }
-        
-       
     }
 
     private void Awake()

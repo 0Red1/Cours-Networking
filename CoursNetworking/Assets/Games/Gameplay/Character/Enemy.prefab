@@ -80,7 +80,6 @@ GameObject:
   - component: {fileID: 4262091499356546735}
   - component: {fileID: 591114937551423305}
   - component: {fileID: 3183410726954416810}
-  - component: {fileID: 707621828491646698}
   - component: {fileID: 8533824257852557843}
   - component: {fileID: 4977197557512239336}
   - component: {fileID: 3586760902304836163}
@@ -228,24 +227,6 @@ MonoBehaviour:
   SwitchTransformSpaceWhenParented: 0
   Interpolate: 1
   SlerpPosition: 0
---- !u!114 &707621828491646698
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7366702146589550703}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be7aad6fc7570234eba74b904e2f0513, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Character
-  ShowTopMostFoldoutHeaderGroup: 1
-  movementController: {fileID: 0}
-  animationsController: {fileID: 0}
-  skillsPlayer: {fileID: 0}
-  healthSystem: {fileID: 0}
-  attackDamageLogic: {fileID: 0}
 --- !u!114 &8533824257852557843
 MonoBehaviour:
   m_ObjectHideFlags: 0
